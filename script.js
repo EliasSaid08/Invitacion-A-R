@@ -36,59 +36,70 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // ---------- Número de pases (desde path o query string) ----------
-  const getNumPasses = () => {
-    const path = window.location.pathname.replace(/^\/+/, '');
-    let passes = parseInt(path, 10);
-
-    if (isNaN(passes)) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const p = searchParams.get('p') || searchParams.get('pases') || searchParams.get('personas');
-      passes = parseInt(p, 10);
-    }
-
-    if (isNaN(passes) || passes < 1 || passes > 10) {
-      return 1;
-    }
-    return passes;
-  };
-  const numPasses = getNumPasses();
-
-  // ---------- Nombre de la familia/invitado (desde query string) ----------
-  const getGuestName = () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    let name = searchParams.get('n') || searchParams.get('nombre') || searchParams.get('familia');
-    if (!name) return null;
-    name = name.replace(/[-+]/g, ' ').trim();
-    if (name.length > 40) name = name.slice(0, 40);
-    return name || null;
-  };
-  const guestName = getGuestName();
-
-  // ---------- Mostrar nombre e invitados/pases en la tarjeta de Confirmación ----------
-  const guestNameText = document.getElementById('guest-name-text');
-  const guestPassesText = document.getElementById('guest-passes-text');
-
-  if (guestNameText) {
-    guestNameText.textContent = guestName ? `¡Hola, ${guestName}!` : '¡Hola!';
-  }
-  if (guestPassesText) {
-    const isSingular = numPasses === 1;
-    guestPassesText.textContent = isSingular
-      ? 'Tenés 1 pase asignado'
-      : `Tienen ${numPasses} pases asignados`;
-  }
-
-  // ---------- Total de la Tarjeta según cantidad de pases ----------
-  const PRECIO_TARJETA = 35000;
+  // ---------- Formulario de confirmación: nombre + contadores de adultos/menores ----------
+  const guestNameInput = document.getElementById('guestNameInput');
+  const adultsCountEl = document.getElementById('adultsCount');
+  const childrenCountEl = document.getElementById('childrenCount');
+  const rsvpSummaryText = document.getElementById('rsvp-summary-text');
+  const rsvpErrorText = document.getElementById('rsvp-error');
   const tarjetaTotalText = document.getElementById('tarjeta-total-text');
-  if (tarjetaTotalText) {
-    const totalTarjeta = PRECIO_TARJETA * numPasses;
+
+  const PRECIO_TARJETA = 35000;
+  let adults = 1;
+  let children = 0;
+
+  const pluralize = (n, singular, plural) => `${n} ${n === 1 ? singular : plural}`;
+
+  const updateTarjetaTotal = (totalPersonas) => {
+    if (!tarjetaTotalText) return;
+    const totalTarjeta = PRECIO_TARJETA * totalPersonas;
     const totalFormateado = totalTarjeta.toLocaleString('es-AR');
-    tarjetaTotalText.textContent = numPasses === 1
+    tarjetaTotalText.textContent = totalPersonas === 1
       ? `Total por tu pase: $${totalFormateado}`
-      : `Total por tus ${numPasses} pases: $${totalFormateado}`;
-  }
+      : `Total por sus ${totalPersonas} pases: $${totalFormateado}`;
+  };
+
+  const updateRsvpUI = () => {
+    adultsCountEl.textContent = adults;
+    childrenCountEl.textContent = children;
+
+    const totalPersonas = adults + children;
+    if (rsvpSummaryText) {
+      rsvpSummaryText.textContent = totalPersonas === 1
+        ? 'Confirmás para 1 persona'
+        : `Confirmás para ${totalPersonas} personas`;
+    }
+    updateTarjetaTotal(totalPersonas);
+  };
+
+  document.querySelectorAll('.counter-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      const action = btn.dataset.action;
+
+      if (target === 'adults') {
+        adults = action === 'inc' ? adults + 1 : Math.max(1, adults - 1);
+      } else if (target === 'children') {
+        children = action === 'inc' ? children + 1 : Math.max(0, children - 1);
+      }
+      updateRsvpUI();
+    });
+  });
+
+  const showRsvpError = (msg) => {
+    if (!rsvpErrorText) return;
+    rsvpErrorText.textContent = msg;
+    rsvpErrorText.classList.add('visible');
+  };
+
+  const hideRsvpError = () => {
+    if (!rsvpErrorText) return;
+    rsvpErrorText.classList.remove('visible');
+  };
+
+  guestNameInput && guestNameInput.addEventListener('input', hideRsvpError);
+
+  updateRsvpUI();
 
   // ---------- Copiar alias (con fallback) ----------
   const ALIAS_TEXT = 'RAUL00.NX';
@@ -159,15 +170,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Confirmación por WhatsApp ----------
   const handleConfirmRSVP = (phoneNumber) => {
-    const isSingular = numPasses === 1;
-    const placesText = isSingular ? '1 persona' : `${numPasses} personas`;
-    const who = guestName || (isSingular ? 'un invitado sin nombre (agregar antes de enviar)' : 'invitados sin nombre (agregar antes de enviar)');
+    const name = guestNameInput ? guestNameInput.value.trim() : '';
+
+    if (!name) {
+      showRsvpError('Por favor ingresá tu nombre antes de confirmar.');
+      guestNameInput && guestNameInput.focus();
+      return;
+    }
+    hideRsvpError();
+
+    const total = adults + children;
+    const isSingular = total === 1;
     const leadVerb = isSingular ? 'Soy' : 'Somos';
     const confirmVerb = isSingular ? 'confirmo' : 'confirmamos';
     const possessive = isSingular ? 'mi' : 'nuestra';
 
+    let detalle;
+    if (adults > 0 && children > 0) {
+      detalle = ` (${pluralize(adults, 'adulto', 'adultos')} y ${pluralize(children, 'menor', 'menores')})`;
+    } else if (children > 0) {
+      detalle = ` (${pluralize(children, 'menor', 'menores')})`;
+    } else {
+      detalle = '';
+    }
+
+    const placesText = `${pluralize(total, 'persona', 'personas')}${detalle}`;
+
     const message = encodeURIComponent(
-      `¡Hola! ${leadVerb} ${who} y les ${confirmVerb} con mucho cariño ${possessive} asistencia por ${placesText} para su boda el Sábado 26 de Septiembre. ¡Los queremos mucho!`
+      `¡Hola! ${leadVerb} ${name} y les ${confirmVerb} con mucho cariño ${possessive} asistencia por ${placesText} para su boda el Sábado 26 de Septiembre. ¡Los queremos mucho!`
     );
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
