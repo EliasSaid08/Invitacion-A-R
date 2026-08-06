@@ -263,6 +263,7 @@ body {
 .dress-code-card,
 .rsvp-card,
 .gift-card,
+.tarjeta-card,
 .final-card,
 .historia-card,
 .galeria-card {
@@ -282,6 +283,7 @@ body {
 .dress-code-card::after,
 .rsvp-card::after,
 .gift-card::after,
+.tarjeta-card::after,
 .final-card::after {
   content: '';
   position: absolute;
@@ -530,6 +532,13 @@ body {
   margin-bottom: min(1vh, 0.4rem);
 }
 
+.dress-code-highlight small {
+  font-size: 0.5em;
+  letter-spacing: 1px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
 .dress-colors {
   display: flex;
   justify-content: center;
@@ -637,6 +646,15 @@ body {
   padding: min(1.5vh, 0.75rem) 0.5rem;
   font-size: min(1.7vh, 0.68rem);
   margin-top: 0;
+}
+
+/* ============ TARJETA ============ */
+.tarjeta-total {
+  font-family: var(--font-serif);
+  font-size: min(1.9vh, 0.85rem);
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: min(1.2vh, 0.55rem);
 }
 
 /* ============ MESA DE REGALOS ============ */
@@ -1017,6 +1035,7 @@ body {
   .dress-code-card,
   .rsvp-card,
   .gift-card,
+  .tarjeta-card,
   .final-card,
   .historia-card,
   .galeria-card {
@@ -1035,6 +1054,7 @@ body {
   .dress-code-card,
   .rsvp-card,
   .gift-card,
+  .tarjeta-card,
   .final-card,
   .historia-card,
   .galeria-card {

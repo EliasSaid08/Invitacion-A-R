@@ -74,7 +74,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (guestPassesText) {
     const isSingular = numPasses === 1;
-    guestPassesText.textContent = isSingular ? 'Tenés 1 pase asignado' : `Tenés ${numPasses} pases asignados`;
+    guestPassesText.textContent = isSingular
+      ? 'Tenés 1 pase asignado'
+      : `Tienen ${numPasses} pases asignados`;
+  }
+
+  // ---------- Total de la Tarjeta según cantidad de pases ----------
+  const PRECIO_TARJETA = 35000;
+  const tarjetaTotalText = document.getElementById('tarjeta-total-text');
+  if (tarjetaTotalText) {
+    const totalTarjeta = PRECIO_TARJETA * numPasses;
+    const totalFormateado = totalTarjeta.toLocaleString('es-AR');
+    tarjetaTotalText.textContent = numPasses === 1
+      ? `Total por tu pase: $${totalFormateado}`
+      : `Total por tus ${numPasses} pases: $${totalFormateado}`;
   }
 
   // ---------- Copiar alias (con fallback) ----------
