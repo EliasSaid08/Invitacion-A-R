@@ -282,6 +282,7 @@
                   <span class="counter-value" id="adultsCount">1</span>
                   <button type="button" class="counter-btn" data-action="inc" data-target="adults" aria-label="Sumar adulto">+</button>
                 </div>
+                <span class="counter-price">$35.000 c/u</span>
               </div>
               <div class="counter-group">
                 <span class="counter-label">Menores</span>
@@ -290,17 +291,29 @@
                   <span class="counter-value" id="childrenCount">0</span>
                   <button type="button" class="counter-btn" data-action="inc" data-target="children" aria-label="Sumar menor">+</button>
                 </div>
+                <span class="counter-price">$28.000 c/u</span>
               </div>
             </div>
 
-            <p class="rsvp-summary" id="rsvp-summary-text">Confirmás para 1 persona</p>
+            <p class="rsvp-summary" id="rsvp-summary-text">CONFIRMÁS PARA<br>Adultos: 1 · Menores: 0</p>
             <p class="rsvp-error" id="rsvp-error"></p>
           </div>
 
           <div class="rsvp-tarjeta-divider"><span>Tarjeta</span></div>
 
           <div class="tarjeta-inline">
-            <span class="dress-code-highlight">$35.000 <small>c/u</small></span>
+            <div class="tarjeta-precios">
+              <div class="precio-item">
+                <span class="precio-label">Adultos</span>
+                <span class="precio-valor">$35.000</span>
+              </div>
+              <div class="precio-divider-vert"></div>
+              <div class="precio-item">
+                <span class="precio-label">Menores<br><small>(hasta 10 años)</small></span>
+                <span class="precio-valor">$28.000</span>
+              </div>
+            </div>
+            <div class="tarjeta-breakdown" id="tarjeta-breakdown"></div>
             <p class="tarjeta-total" id="tarjeta-total-text"></p>
             <div class="gift-details">
               <span class="transfer-label">ALIAS TARJETA</span>
@@ -315,6 +328,96 @@
             <button class="primary-button rsvp-btn" id="rsvp-abbi">A Abbi</button>
             <button class="primary-button rsvp-btn" id="rsvp-raul">A Raúl</button>
           </div>
+        </div>
+      </section>
+
+      <!-- ===================== ESTO INCLUYE TU TARJETA (CATERING) ===================== -->
+      <section class="catering-section-snap snap-section">
+        <svg viewBox="0 0 120 120" class="corner-decor top-left">
+          <path d="M-10,-10 C20,30 45,55 55,85" fill="none" stroke="#454a2c" stroke-width="1.2" opacity="0.15" />
+          <path d="M10,15 C2,5 -5,12 -2,20 C1,28 12,22 10,15 Z" fill="#9da389" opacity="0.2" />
+          <path d="M22,35 C12,25 5,32 8,40 C11,48 22,42 22,35 Z" fill="#454a2c" opacity="0.15" />
+        </svg>
+        <svg viewBox="0 0 120 120" class="corner-decor bottom-right">
+          <path d="M130,130 C100,90 80,60 70,35" fill="none" stroke="#454a2c" stroke-width="1.2" opacity="0.15" />
+          <path d="M110,105 C118,115 125,108 122,100 C119,92 108,98 110,105 Z" fill="#9da389" opacity="0.2" />
+          <path d="M98,85 C108,95 115,88 112,80 C109,72 98,78 98,85 Z" fill="#454a2c" opacity="0.15" />
+        </svg>
+
+        <div class="galeria-card menu-card">
+          <svg viewBox="0 0 24 24" width="30" height="30" class="section-icon">
+            <path fill="currentColor"
+              d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z" />
+          </svg>
+          <h3 class="serif-title card-title">Esto incluye tu tarjeta</h3>
+          <p class="card-subtitle">Servicio de Catering</p>
+
+          <div class="menu-section">
+            <h4 class="menu-section-title">Recepciones</h4>
+            <ol class="menu-list menu-list-numbered">
+              <li>Isla copetín de frutilla o durazno</li>
+              <li>Isla pernil de cerdo macerado en finas hierbas, panes chips, salsas y aderezos</li>
+              <li>Isla fogonero con carne tiernizada, chorizos saborizados, pan de campo, salsas y aderezos</li>
+              <li>Isla mini tacos de pollo y carne, salsas y aderezos</li>
+            </ol>
+          </div>
+
+          <div class="menu-divider"><span>&#10022;</span></div>
+
+          <div class="menu-section">
+            <h4 class="menu-section-title">Entradas</h4>
+            <ul class="menu-list">
+              <li>Sándwich de jamón y queso</li>
+              <li>Sándwich de ternera y queso</li>
+              <li>Empanadas de pollo</li>
+              <li>Tarteletas rellenas</li>
+              <li>Pizzetas</li>
+            </ul>
+          </div>
+
+          <div class="menu-divider"><span>&#10022;</span></div>
+
+          <div class="menu-section">
+            <div class="menu-subsection">
+              <h4 class="menu-section-title">Plato Principal</h4>
+              <p class="menu-text">Pollo deshuesado con papas españolas y salsa al champiñón</p>
+            </div>
+            <div class="menu-subsection">
+              <h4 class="menu-section-title">Postre</h4>
+              <p class="menu-text">Base de brownie con helado y salsa de chocolate</p>
+            </div>
+          </div>
+
+          <div class="menu-divider"><span>&#10022;</span></div>
+
+          <div class="menu-section">
+            <h4 class="menu-section-title">También incluye</h4>
+            <ul class="menu-list">
+              <li>Regalo a cargo del servicio de Catering</li>
+              <li>Barra de tragos</li>
+              <li>Cascada de chocolate</li>
+              <li>Pizzeada para todos</li>
+            </ul>
+          </div>
+
+          <div class="menu-divider"><span>&#10022;</span></div>
+
+          <div class="menu-section">
+            <div class="menu-subsection">
+              <h4 class="menu-section-title">Bebidas</h4>
+              <p class="menu-text">Gaseosas</p>
+            </div>
+            <div class="menu-subsection">
+              <h4 class="menu-section-title">Servicio a cargo del Catering</h4>
+              <ul class="menu-list">
+                <li>Mozos</li>
+                <li>Personal de cocina</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="menu-footer-note">Nosotros nos encargamos de cada detalle para que tú boda sea una noche
+            inolvidable.</p>
         </div>
       </section>
 

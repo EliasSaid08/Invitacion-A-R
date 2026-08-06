@@ -592,6 +592,170 @@ body {
   max-width: 380px;
 }
 
+/* ============ MENU DE CATERING (texto) ============ */
+.menu-card {
+  text-align: left;
+  max-width: 380px;
+  max-height: 86vh;
+  overflow-y: auto;
+  padding-top: min(2vh, 1.1rem);
+  padding-bottom: min(2vh, 1.1rem);
+}
+
+.menu-card::-webkit-scrollbar {
+  width: 4px;
+}
+
+.menu-card::-webkit-scrollbar-thumb {
+  background: rgba(169, 138, 79, 0.35);
+  border-radius: 4px;
+}
+
+.menu-card .section-icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-card .card-title,
+.menu-card .card-subtitle {
+  text-align: center;
+}
+
+.menu-card .card-subtitle {
+  margin-bottom: min(1.4vh, 0.7rem);
+}
+
+.menu-section {
+  background-color: #f6f4ec;
+  border: 1px solid rgba(107, 112, 80, 0.2);
+  border-radius: 10px;
+  padding: min(1.3vh, 0.75rem) min(2vw, 0.9rem);
+}
+
+.menu-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: min(2.1vh, 1rem);
+  color: var(--primary-color);
+  margin: 0 0 0.45rem 0;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(169, 138, 79, 0.25);
+}
+
+.menu-section-title::before {
+  content: '\2726';
+  color: var(--gold-accent);
+  font-size: 0.7em;
+  line-height: 1;
+}
+
+.menu-text {
+  font-size: min(1.85vh, 0.82rem);
+  line-height: 1.55;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: min(1.85vh, 0.82rem);
+  line-height: 1.55;
+  color: var(--text-dark);
+  margin-bottom: 0.4rem;
+}
+
+.menu-list li:last-child {
+  margin-bottom: 0;
+}
+
+.menu-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold-accent);
+}
+
+.menu-list-numbered {
+  counter-reset: menu-counter;
+}
+
+.menu-list-numbered li {
+  counter-increment: menu-counter;
+  padding-left: 1.5rem;
+}
+
+.menu-list-numbered li::before {
+  content: counter(menu-counter);
+  top: 0;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.95em;
+  color: var(--gold-accent);
+}
+
+.menu-subsection + .menu-subsection {
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed rgba(169, 138, 79, 0.3);
+}
+
+.menu-subsection .menu-section-title {
+  font-size: min(1.95vh, 0.92rem);
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0.3rem;
+}
+
+.menu-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: min(1.4vh, 0.85rem) 0;
+}
+
+.menu-divider::before,
+.menu-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(169, 138, 79, 0.3);
+}
+
+.menu-divider span {
+  color: var(--gold-accent);
+  font-size: 0.7rem;
+}
+
+.menu-footer-note {
+  margin-top: min(1.6vh, 0.9rem);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: min(2vh, 0.92rem);
+  color: var(--gold-accent);
+  text-align: center;
+  line-height: 1.5;
+}
+
 .gallery-carousel {
   margin-top: 0.6rem;
   border: 1px solid rgba(169, 138, 79, 0.2);
@@ -753,6 +917,13 @@ body {
   text-align: center;
 }
 
+.counter-price {
+  font-family: var(--font-sans);
+  font-size: min(1.3vh, 0.6rem);
+  color: var(--text-light);
+  letter-spacing: 0.3px;
+}
+
 .rsvp-summary {
   font-family: var(--font-sans);
   font-size: min(1.6vh, 0.7rem);
@@ -760,6 +931,7 @@ body {
   color: var(--gold-accent);
   font-weight: 600;
   text-transform: uppercase;
+  line-height: 1.6;
 }
 
 .rsvp-error {
@@ -847,6 +1019,71 @@ body {
 
 .tarjeta-inline .tarjeta-total {
   margin-bottom: min(0.8vh, 0.4rem);
+}
+
+.tarjeta-precios {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: min(1.4vh, 0.9rem);
+  width: 100%;
+  margin-bottom: min(0.8vh, 0.4rem);
+}
+
+.precio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  background-color: #f6f4ec;
+  border: 1px solid rgba(107, 112, 80, 0.25);
+  border-radius: 10px;
+  padding: min(1vh, 0.55rem) 0.5rem;
+}
+
+.precio-label {
+  font-family: var(--font-sans);
+  font-size: min(1.35vh, 0.62rem);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  line-height: 1.35;
+}
+
+.precio-label small {
+  font-size: 0.85em;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.precio-valor {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: min(2.3vh, 1.15rem);
+  color: var(--primary-color);
+}
+
+.precio-divider-vert {
+  width: 1px;
+  background: rgba(169, 138, 79, 0.3);
+  align-self: stretch;
+}
+
+.tarjeta-breakdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  font-family: var(--font-sans);
+  font-size: min(1.65vh, 0.75rem);
+  color: var(--text-dark);
+}
+
+.tarjeta-breakdown p {
+  margin: 0;
 }
 
 /* ============ TARJETA (valor total dinámico) ============ */

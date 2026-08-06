@@ -44,32 +44,47 @@ document.addEventListener('DOMContentLoaded', () => {
   const rsvpErrorText = document.getElementById('rsvp-error');
   const tarjetaTotalText = document.getElementById('tarjeta-total-text');
 
-  const PRECIO_TARJETA = 35000;
+  const tarjetaBreakdownEl = document.getElementById('tarjeta-breakdown');
+
+  const PRECIO_TARJETA_ADULTO = 35000;
+  const PRECIO_TARJETA_MENOR = 28000;
   let adults = 1;
   let children = 0;
 
   const pluralize = (n, singular, plural) => `${n} ${n === 1 ? singular : plural}`;
+  const formatARS = (n) => n.toLocaleString('es-AR');
 
-  const updateTarjetaTotal = (totalPersonas) => {
+  const updateTarjetaTotal = (adultsCount, childrenCount) => {
     if (!tarjetaTotalText) return;
-    const totalTarjeta = PRECIO_TARJETA * totalPersonas;
-    const totalFormateado = totalTarjeta.toLocaleString('es-AR');
+    const totalAdultos = PRECIO_TARJETA_ADULTO * adultsCount;
+    const totalMenores = PRECIO_TARJETA_MENOR * childrenCount;
+    const totalTarjeta = totalAdultos + totalMenores;
+    const totalPersonas = adultsCount + childrenCount;
+
+    if (tarjetaBreakdownEl) {
+      const lineas = [];
+      if (adultsCount > 0) {
+        lineas.push(`Adultos: ${adultsCount} × $${formatARS(PRECIO_TARJETA_ADULTO)} = $${formatARS(totalAdultos)}`);
+      }
+      if (childrenCount > 0) {
+        lineas.push(`Menores: ${childrenCount} × $${formatARS(PRECIO_TARJETA_MENOR)} = $${formatARS(totalMenores)}`);
+      }
+      tarjetaBreakdownEl.innerHTML = lineas.map((l) => `<p>${l}</p>`).join('');
+    }
+
     tarjetaTotalText.textContent = totalPersonas === 1
-      ? `Total por tu pase: $${totalFormateado}`
-      : `Total por sus ${totalPersonas} pases: $${totalFormateado}`;
+      ? `Total por tu pase: $${formatARS(totalTarjeta)}`
+      : `Total: $${formatARS(totalTarjeta)}`;
   };
 
   const updateRsvpUI = () => {
     adultsCountEl.textContent = adults;
     childrenCountEl.textContent = children;
 
-    const totalPersonas = adults + children;
     if (rsvpSummaryText) {
-      rsvpSummaryText.textContent = totalPersonas === 1
-        ? 'Confirmás para 1 persona'
-        : `Confirmás para ${totalPersonas} personas`;
+      rsvpSummaryText.innerHTML = `CONFIRMÁS PARA<br>Adultos: ${adults} · Menores: ${children}`;
     }
-    updateTarjetaTotal(totalPersonas);
+    updateTarjetaTotal(adults, children);
   };
 
   document.querySelectorAll('.counter-btn').forEach((btn) => {
@@ -203,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.getElementById('rsvp-abbi').addEventListener('click', () => {
-    handleConfirmRSVP('5493863514370');
+    handleConfirmRSVP('5493863514379');
   });
 
   document.getElementById('rsvp-raul').addEventListener('click', () => {
