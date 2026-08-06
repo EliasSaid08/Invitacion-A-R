@@ -266,48 +266,54 @@
           </svg>
           <h3 class="serif-title card-title">Confirmación</h3>
 
-          <div class="guest-info">
-            <p class="guest-name" id="guest-name-text"></p>
-            <span class="guest-passes" id="guest-passes-text"></span>
+          <p class="rsvp-description">Contanos quién sos y cuántos van a venir</p>
+
+          <div class="rsvp-form">
+            <div class="form-group">
+              <label for="guestNameInput">Tu nombre o el de tu familia</label>
+              <input type="text" id="guestNameInput" class="rsvp-input" placeholder="Ej: Familia Pérez" maxlength="60" autocomplete="name" />
+            </div>
+
+            <div class="counters-row">
+              <div class="counter-group">
+                <span class="counter-label">Adultos</span>
+                <div class="counter-control">
+                  <button type="button" class="counter-btn" data-action="dec" data-target="adults" aria-label="Restar adulto">&#8722;</button>
+                  <span class="counter-value" id="adultsCount">1</span>
+                  <button type="button" class="counter-btn" data-action="inc" data-target="adults" aria-label="Sumar adulto">+</button>
+                </div>
+              </div>
+              <div class="counter-group">
+                <span class="counter-label">Menores</span>
+                <div class="counter-control">
+                  <button type="button" class="counter-btn" data-action="dec" data-target="children" aria-label="Restar menor">&#8722;</button>
+                  <span class="counter-value" id="childrenCount">0</span>
+                  <button type="button" class="counter-btn" data-action="inc" data-target="children" aria-label="Sumar menor">+</button>
+                </div>
+              </div>
+            </div>
+
+            <p class="rsvp-summary" id="rsvp-summary-text">Confirmás para 1 persona</p>
+            <p class="rsvp-error" id="rsvp-error"></p>
           </div>
 
-          <p class="rsvp-description">Por favor confirmá tu asistencia antes del 10 de Septiembre</p>
+          <div class="rsvp-tarjeta-divider"><span>Tarjeta</span></div>
+
+          <div class="tarjeta-inline">
+            <span class="dress-code-highlight">$35.000 <small>c/u</small></span>
+            <p class="tarjeta-total" id="tarjeta-total-text"></p>
+            <div class="gift-details">
+              <span class="transfer-label">ALIAS TARJETA</span>
+              <span class="transfer-alias">QUINTEROSABBI.UALA26</span>
+              <button class="copy-button" id="copyAliasTarjeta">Copiar</button>
+            </div>
+          </div>
+
+          <p class="rsvp-description">Confirmá tu asistencia y aboná la tarjeta antes del 10 de Septiembre</p>
 
           <div class="rsvp-buttons-container">
             <button class="primary-button rsvp-btn" id="rsvp-abbi">A Abbi</button>
             <button class="primary-button rsvp-btn" id="rsvp-raul">A Raúl</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== TARJETA ===================== -->
-      <section class="tarjeta-section-snap snap-section">
-        <svg viewBox="0 0 120 120" class="corner-decor top-left">
-          <path d="M-10,-10 C20,30 45,55 55,85" fill="none" stroke="#454a2c" stroke-width="1.2" opacity="0.15" />
-          <path d="M10,15 C2,5 -5,12 -2,20 C1,28 12,22 10,15 Z" fill="#9da389" opacity="0.2" />
-          <path d="M22,35 C12,25 5,32 8,40 C11,48 22,42 22,35 Z" fill="#454a2c" opacity="0.15" />
-        </svg>
-        <svg viewBox="0 0 120 120" class="corner-decor bottom-right">
-          <path d="M130,130 C100,90 80,60 70,35" fill="none" stroke="#454a2c" stroke-width="1.2" opacity="0.15" />
-          <path d="M110,105 C118,115 125,108 122,100 C119,92 108,98 110,105 Z" fill="#9da389" opacity="0.2" />
-          <path d="M98,85 C108,95 115,88 112,80 C109,72 98,78 98,85 Z" fill="#454a2c" opacity="0.15" />
-        </svg>
-
-        <div class="tarjeta-card">
-          <svg viewBox="0 0 24 24" width="30" height="30" class="section-icon">
-            <path fill="currentColor"
-              d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" />
-          </svg>
-          <h3 class="serif-title card-title">Tarjeta</h3>
-          <span class="dress-code-highlight">$35.000 <small>c/u</small></span>
-          <p class="rsvp-description">
-            El valor puede variar según la fecha de pago. Tenés tiempo de abonarla hasta el 10 de Septiembre.
-          </p>
-          <p class="tarjeta-total" id="tarjeta-total-text"></p>
-          <div class="gift-details">
-            <span class="transfer-label">ALIAS TARJETA</span>
-            <span class="transfer-alias">QUINTEROSABBI.UALA26</span>
-            <button class="copy-button" id="copyAliasTarjeta">Copiar</button>
           </div>
         </div>
       </section>
@@ -330,9 +336,10 @@
             <path fill="currentColor"
               d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 00-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z" />
           </svg>
-          <h3 class="serif-title card-title">Agradecimiento y ayuda</h3>
+          <h3 class="serif-title card-title">Mesa de Regalos</h3>
           <p class="gift-text">
-          Su presencia es nuestro mayor regalo. Si además desean ayudarnos con un pequeño aporte para cubrir gastos de la boda y nuestra luna de miel, aquí lo pueden hacer. No es obligatorio, ¡solo si lo desean!
+            Su presencia es nuestro mayor regalo. Si desean tener un gesto con nosotros, pueden colaborar con los
+            preparativos de la boda y/o nuestra luna de miel.
           </p>
           <div class="gift-details">
             <span class="transfer-label">ALIAS / CBU</span>
