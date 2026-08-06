@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.getElementById('rsvp-abbi').addEventListener('click', () => {
-    handleConfirmRSVP('5493863514379');
+    handleConfirmRSVP('5493863514370');
   });
 
   document.getElementById('rsvp-raul').addEventListener('click', () => {
