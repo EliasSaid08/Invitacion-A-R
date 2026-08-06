@@ -649,6 +649,14 @@ body {
 }
 
 /* ============ TARJETA ============ */
+.tarjeta-precio-menores {
+  font-size: min(1.6vh, 0.72rem);
+  color: var(--text-dark);
+  opacity: 0.8;
+  margin-top: -0.3rem;
+  margin-bottom: min(1vh, 0.5rem);
+}
+
 .tarjeta-total {
   font-family: var(--font-serif);
   font-size: min(1.9vh, 0.85rem);
