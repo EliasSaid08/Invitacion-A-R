@@ -10,6 +10,7 @@
   --font-script: 'Parisienne', cursive;
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Montserrat', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -569,11 +570,21 @@ body {
 }
 
 .dress-code-note {
-  font-size: min(1.75vh, 0.75rem);
-  color: var(--text-light);
-  font-style: italic;
-  margin-top: 0.4rem;
+  font-size: min(1.9vh, 0.8rem);
+  color: var(--text-dark);
+  font-style: normal;
+  margin-top: 0.6rem;
   line-height: 1.5;
+  background-color: rgba(138, 44, 44, 0.08);
+  border: 1px solid rgba(138, 44, 44, 0.25);
+  border-left: 3px solid #8a2c2c;
+  border-radius: 6px;
+  padding: 0.5rem 0.7rem;
+}
+
+.dress-code-note strong {
+  color: #8a2c2c;
+  font-weight: 700;
 }
 
 /* ============ GALERIA ============ */
@@ -649,14 +660,6 @@ body {
 }
 
 /* ============ TARJETA ============ */
-.tarjeta-precio-menores {
-  font-size: min(1.6vh, 0.72rem);
-  color: var(--text-dark);
-  opacity: 0.8;
-  margin-top: -0.3rem;
-  margin-bottom: min(1vh, 0.5rem);
-}
-
 .tarjeta-total {
   font-family: var(--font-serif);
   font-size: min(1.9vh, 0.85rem);
@@ -694,8 +697,8 @@ body {
 }
 
 .transfer-alias {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--gold-accent);
   letter-spacing: 0.5px;
@@ -784,6 +787,13 @@ body {
 .dev-link:hover {
   color: var(--gold-accent);
   text-decoration: underline;
+}
+
+.footer-more-info {
+  display: block;
+  font-size: 0.5rem;
+  margin-top: 0.15rem;
+  opacity: 0.85;
 }
 
 /* ============ ANIMACIONES ============ */

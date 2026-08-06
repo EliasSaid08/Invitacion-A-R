@@ -54,19 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const numPasses = getNumPasses();
 
-  // ---------- Número de menores hasta 10 años (desde query string) ----------
-  const getNumMenores = (totalPasses) => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const m = searchParams.get('menores') || searchParams.get('me') || searchParams.get('ninos');
-    let menores = parseInt(m, 10);
-
-    if (isNaN(menores) || menores < 0) return 0;
-    if (menores > totalPasses) return totalPasses;
-    return menores;
-  };
-  const numMenores = getNumMenores(numPasses);
-  const numAdultos = numPasses - numMenores;
-
   // ---------- Nombre de la familia/invitado (desde query string) ----------
   const getGuestName = () => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -87,36 +74,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (guestPassesText) {
     const isSingular = numPasses === 1;
-    let baseText = isSingular
+    guestPassesText.textContent = isSingular
       ? 'Tenés 1 pase asignado'
       : `Tienen ${numPasses} pases asignados`;
-
-    if (numMenores > 0) {
-      const adultosTexto = numAdultos === 1 ? '1 adulto' : `${numAdultos} adultos`;
-      const menoresTexto = numMenores === 1 ? '1 menor' : `${numMenores} menores`;
-      baseText += ` (${adultosTexto} y ${menoresTexto})`;
-    }
-
-    guestPassesText.textContent = baseText;
   }
 
   // ---------- Total de la Tarjeta según cantidad de pases ----------
-  const PRECIO_TARJETA_ADULTO = 35000;
-  const PRECIO_TARJETA_MENOR = 28000;
+  const PRECIO_TARJETA = 35000;
   const tarjetaTotalText = document.getElementById('tarjeta-total-text');
   if (tarjetaTotalText) {
-    const totalTarjeta = (numAdultos * PRECIO_TARJETA_ADULTO) + (numMenores * PRECIO_TARJETA_MENOR);
+    const totalTarjeta = PRECIO_TARJETA * numPasses;
     const totalFormateado = totalTarjeta.toLocaleString('es-AR');
-
-    if (numMenores === 0) {
-      tarjetaTotalText.textContent = numPasses === 1
-        ? `Total por tu pase: $${totalFormateado}`
-        : `Total por tus ${numPasses} pases: $${totalFormateado}`;
-    } else {
-      const adultosTexto = numAdultos === 1 ? '1 adulto' : `${numAdultos} adultos`;
-      const menoresTexto = numMenores === 1 ? '1 menor' : `${numMenores} menores`;
-      tarjetaTotalText.textContent = `Total por ${adultosTexto} y ${menoresTexto}: $${totalFormateado}`;
-    }
+    tarjetaTotalText.textContent = numPasses === 1
+      ? `Total por tu pase: $${totalFormateado}`
+      : `Total por tus ${numPasses} pases: $${totalFormateado}`;
   }
 
   // ---------- Copiar alias (con fallback) ----------
