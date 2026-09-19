@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Countdown ----------
-  const targetDate = new Date('2026-09-26T11:00:00');
+  const targetDate = new Date('2026-09-26T11:30:00');
 
   const cdDias = document.getElementById('cd-dias');
   const cdHoras = document.getElementById('cd-horas');
